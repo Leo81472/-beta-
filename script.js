@@ -1,4 +1,40 @@
 window.addEventListener('load', () => {
+    // 检查是否已经验证过
+    const isVerified = localStorage.getItem('keyVerified');
+    const calculator = document.querySelector('.calculator');
+    const keyVerifyOverlay = document.querySelector('.key-verify-overlay');
+    const keyVerifyInput = document.querySelector('.key-verify-input');
+    const keyVerifyButton = document.querySelector('.key-verify-button');
+    const keyVerifyError = document.querySelector('.key-verify-error');
+
+    // 如果已经验证过，直接显示计算器
+    if (isVerified === 'true') {
+        keyVerifyOverlay.style.display = 'none';
+        calculator.classList.add('verified');
+    }
+
+    // 验证按钮点击事件
+    keyVerifyButton.addEventListener('click', () => {
+        const key = keyVerifyInput.value;
+        if (key === '8484') {
+            localStorage.setItem('keyVerified', 'true');
+            keyVerifyOverlay.style.display = 'none';
+            calculator.classList.add('verified');
+            keyVerifyError.style.display = 'none';
+        } else {
+            keyVerifyError.style.display = 'block';
+            keyVerifyInput.value = '';
+        }
+    });
+
+    // 按回车键也可以验证
+    keyVerifyInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            keyVerifyButton.click();
+        }
+    });
+
+
     const calculator = {
         displayHistory: document.querySelector('.history'),
         displayCurrent: document.querySelector('.current'),

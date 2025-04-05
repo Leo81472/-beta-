@@ -5,8 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>网页计算器</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="key-verify.css">
 </head>
 <body>
+    <div class="key-verify-overlay">
+        <div class="key-verify-dialog">
+            <div class="key-verify-title">由于此项目是beta版，请输入开发者给你的秘钥</div>
+            <input type="password" class="key-verify-input" placeholder="请输入秘钥">
+            <button class="key-verify-button">验证</button>
+            <div class="key-verify-error">秘钥错误，请重试</div>
+        </div>
+    </div>
     <div class="calculator">
         <div class="display">
             <div class="history"></div>
