@@ -1,7 +1,7 @@
 window.addEventListener('load', () => {
     // 检查是否已经验证过
     const isVerified = localStorage.getItem('keyVerified');
-    const calculator = document.querySelector('.calculator');
+    const calculatorElement = document.querySelector('.calculator');
     const keyVerifyOverlay = document.querySelector('.key-verify-overlay');
     const keyVerifyInput = document.querySelector('.key-verify-input');
     const keyVerifyButton = document.querySelector('.key-verify-button');
@@ -10,7 +10,7 @@ window.addEventListener('load', () => {
     // 如果已经验证过，直接显示计算器
     if (isVerified === 'true') {
         keyVerifyOverlay.style.display = 'none';
-        calculator.classList.add('verified');
+        calculatorElement.classList.add('verified');
     }
 
     // 验证按钮点击事件
@@ -19,7 +19,7 @@ window.addEventListener('load', () => {
         if (key === '8484') {
             localStorage.setItem('keyVerified', 'true');
             keyVerifyOverlay.style.display = 'none';
-            calculator.classList.add('verified');
+            calculatorElement.classList.add('verified');
             keyVerifyError.style.display = 'none';
         } else {
             keyVerifyError.style.display = 'block';
@@ -167,7 +167,13 @@ window.addEventListener('load', () => {
         }
     });
 
+    // 将键盘事件监听器移到这里，并添加条件判断
     document.addEventListener('keydown', (event) => {
+        // 如果验证对话框可见，不处理计算器的键盘事件
+        if (keyVerifyOverlay.style.display !== 'none') {
+            return;
+        }
+
         const key = event.key;
         if (key >= '0' && key <= '9') {
             event.preventDefault();
